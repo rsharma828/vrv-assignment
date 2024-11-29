@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
-// Helper function to verify admin role from token
 const verifyAdmin = (token: string) => {
   try {
     const decodedToken = jwt.verify(token, JWT_SECRET) as {
@@ -24,7 +23,6 @@ const verifyAdmin = (token: string) => {
 
 export async function GET(req: NextRequest) {
   try {
-    // Retrieve the token from cookies
     const token = req.cookies.get("token")?.value;
 
     if (!token) {
@@ -34,10 +32,8 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Verify if the user is an Admin
     const decodedToken = verifyAdmin(token);
 
-    // Fetch all employees from the database
     const employees = await prisma.user.findMany({
       where: { role: "EMPLOYEE" },
       select: {
@@ -49,7 +45,6 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    // Return the employees data
     return NextResponse.json(employees);
   } catch (error) {
     console.error("Error fetching employees:", error);

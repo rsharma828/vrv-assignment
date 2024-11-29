@@ -7,7 +7,7 @@ const EmployeePage = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter(); // Used for redirection
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -27,7 +27,6 @@ const EmployeePage = () => {
         const data = await response.json();
         setUser(data);
 
-        // Check if the role is 'EMPLOYEE'
         if (data.role !== "EMPLOYEE") {
           router.push("/unauthorized");
         }

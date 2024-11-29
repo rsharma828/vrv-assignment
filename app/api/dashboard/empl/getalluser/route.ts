@@ -7,7 +7,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function GET(req: NextRequest) {
   try {
-    // Retrieve the token from cookies
     const token = req.cookies.get("token")?.value;
 
     if (!token) {
@@ -17,14 +16,12 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Verify the token
     const decodedToken = jwt.verify(token, JWT_SECRET) as {
       id: string;
       email: string;
       role: string;
     };
 
-    // Check if the user is an Employee or Admin
     if (decodedToken.role !== "EMPLOYEE" && decodedToken.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Access denied. Employees and Admins only." },
@@ -32,7 +29,6 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Fetch all users but exclude sensitive fields (like password)
     const users = await prisma.user.findMany({
       select: {
         id: true,

@@ -1,11 +1,9 @@
-// app/home/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const HomePage = () => {
-  // State to store user details
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,23 +11,20 @@ const HomePage = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        // Fetch user data from the backend API
         const response = await fetch("/api/dashboard/user", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include", // To send cookies with the request
+          credentials: "include",
         });
 
-        // Handle non-successful response
         if (!response.ok) {
           throw new Error("Failed to fetch user details");
         }
 
         const data = await response.json();
 
-        // Set user data to state
         setUser(data);
       } catch (err: any) {
         setError(err.message);
@@ -38,11 +33,9 @@ const HomePage = () => {
       }
     };
 
-    // Call the function to fetch data
     fetchUserDetails();
   }, []);
 
-  // Render the component based on the state
   return (
     <div className="home-page">
       <h1 className="welcome-title">Welcome to the Dashboard</h1>
@@ -50,7 +43,6 @@ const HomePage = () => {
         Choose a role to explore the respective dashboard:
       </p>
 
-      {/* Buttons for Admin, User, and Employee */}
       <div className="button-container">
         <Link href="/dashboard/admin">
           <button className="role-button">Admin</button>
@@ -63,7 +55,6 @@ const HomePage = () => {
         </Link>
       </div>
 
-      {/* Display Loading, Error, or User Details */}
       {loading ? (
         <div className="loading-message">Loading user details...</div>
       ) : error ? (

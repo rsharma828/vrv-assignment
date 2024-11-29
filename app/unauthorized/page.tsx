@@ -1,4 +1,3 @@
-// app/unauthorized/page.tsx
 const UnauthorizedPage = () => {
   return (
     <div className="unauthorized-container">

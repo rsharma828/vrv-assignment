@@ -10,11 +10,11 @@ export default function SignupPage() {
     name: "",
     email: "",
     password: "",
-    role: "USER", // Default role
+    role: "USER",
   });
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter(); // For redirection after signup
+  const router = useRouter();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -29,18 +29,14 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      // Send signup request
       const response = await axios.post("/api/auth/signup", formData);
 
-      // If signup is successful, store the token in cookies
       const { token, user } = response.data;
 
-      // Set the cookie for JWT
       document.cookie = `token=${token}; path=/;`;
 
       toast.success("Signup successful");
 
-      // Redirect based on role
       if (user.role === "ADMIN") {
         router.push("/dashboard/admin");
       } else if (user.role === "EMPLOYEE") {
