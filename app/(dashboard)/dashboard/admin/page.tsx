@@ -34,7 +34,7 @@ const AdminPage = () => {
         if (data.role !== "ADMIN") {
           router.push("/unauthorized");
         }
-      } catch (err: any) {
+      } catch (err) {
         setError(err.message);
         router.push("/unauthorized");
       } finally {

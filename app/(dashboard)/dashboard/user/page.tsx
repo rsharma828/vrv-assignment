@@ -20,7 +20,7 @@ const UserDashboard = () => {
       try {
         const response = await axios.get("/api/dashboard/user");
         setUser(response.data);
-      } catch (error: any) {
+      } catch (error) {
         if (error.response) {
           setError(error.response.data.error || "Something went wrong");
         } else {

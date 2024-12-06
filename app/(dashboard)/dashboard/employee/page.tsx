@@ -34,7 +34,7 @@ const EmployeePage = () => {
         if (data.role !== "EMPLOYEE") {
           router.push("/unauthorized");
         }
-      } catch (err: any) {
+      } catch (err) {
         setError(err.message);
         router.push("/unauthorized");
       } finally {

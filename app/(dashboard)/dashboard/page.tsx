@@ -3,8 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+interface User {
+  name: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
 const HomePage = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,10 +30,11 @@ const HomePage = () => {
           throw new Error("Failed to fetch user details");
         }
 
-        const data = await response.json();
+        const data: User = await response.json();
 
         setUser(data);
-      } catch (err: any) {
+      } catch (err) {
+        console.log(err);
         setError(err.message);
       } finally {
         setLoading(false);

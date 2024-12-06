@@ -21,6 +21,7 @@ const verifyAdmin = (token: string): DecodedToken => {
 
     return decodedToken;
   } catch (error) {
+    console.log(error);
     throw new Error("Unauthorized access");
   }
 };
