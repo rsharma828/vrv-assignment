@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface User {
+  role: string;
+}
+
 const AdminPage = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -24,7 +28,7 @@ const AdminPage = () => {
           throw new Error("Failed to fetch user details");
         }
 
-        const data = await response.json();
+        const data: User = await response.json();
         setUser(data);
 
         if (data.role !== "ADMIN") {

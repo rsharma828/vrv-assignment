@@ -19,7 +19,7 @@ export default function LoginPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     setLoading(true);
@@ -45,7 +45,7 @@ export default function LoginPage() {
       } else {
         toast.error("Unknown role");
       }
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error.response?.data?.message || "Login failed";
       toast.error(errorMessage);
     } finally {

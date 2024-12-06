@@ -5,8 +5,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  role: "USER" | "EMPLOYEE" | "ADMIN";
+}
+
 export default function SignupPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     password: "",
@@ -46,7 +53,7 @@ export default function SignupPage() {
       } else {
         toast.error("Unknown role");
       }
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error.response?.data?.message || "Signup failed";
       toast.error(errorMessage);
     } finally {
