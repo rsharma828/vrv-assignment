@@ -12,10 +12,10 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    // Verify the token
+    // Verify token
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // Attach user information to the request (optional)
+    // user info
     req.headers.set("user", JSON.stringify(decoded));
 
     return NextResponse.next();
@@ -28,7 +28,6 @@ export function middleware(req: NextRequest) {
   }
 }
 
-// Apply the middleware to protected routes
 export const config = {
-  matcher: ["/api/protected-route"], // Add paths to protect
+  matcher: ["/api/protected-route"],
 };
